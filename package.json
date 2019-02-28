@@ -109,8 +109,7 @@
   },
   "lint-staged": {
     "src/**/*.{ts, tsx}": "tslint --fix",
-    "*.scss": "stylelint",
-    "*.css": "stylelint",
-    "*.json": "jsonlint --quiet"
+    "src/**/*.{css, scss}": "stylelint",
+    "src/**/*.json": "jsonlint --quiet"
   }
 }
