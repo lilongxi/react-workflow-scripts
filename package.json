@@ -19,6 +19,11 @@
       "pre-commit": "lint-staged"
     }
   },
+  "lint-staged": {
+    "*.{ts,tsx}": "tslint --project ./tsconfig.json",
+    "*.{css,scss}": "stylelint",
+    "*.json": "jsonlint --quiet"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/lilongxi"
@@ -110,10 +115,5 @@
   ],
   "config": {
     "port": 8080
-  },
-  "lint-staged": {
-    "*.{ts,tsx}": "tslint --project ./tsconfig.json",
-    "*.{css,scss}": "stylelint",
-    "*.json": "jsonlint --quiet"
   }
 }
