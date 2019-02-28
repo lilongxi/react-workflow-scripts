@@ -1,0 +1,6 @@
+// 用于TsconfigPathsPlugin路径解析
+{
+    "extends": "./tsconfig.json",
+    "include": ["src/**/*.d.ts", "typings"],
+    "files": ["src/index.tsx"]
+}

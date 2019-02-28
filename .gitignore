@@ -1,0 +1,7 @@
+.idea/
+.DS_Store/
+node_modules/
+dev/
+mock/
+.cache-loader/
+coverage_archive/

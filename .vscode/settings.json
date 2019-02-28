@@ -1,0 +1,17 @@
+{
+    "tslint.configFile": "./tslint.json",
+    "editor.formatOnSave": false,
+    "prettier.stylelintIntegration": true,
+    "prettier.tabWidth": 4,
+    "prettier.singleQuote": true,
+    "prettier.semi": false,
+    "vetur.format.defaultFormatter.js": "vscode-typescript",
+    "beautify.ignore": [
+        "**/*.css",
+        "**/*.scss",
+        "**/*.js",
+        "**/*.ts",
+        "**/*.tsx"
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib"
+}

@@ -1,0 +1,12 @@
+@import 'var.scss';
+
+.test {
+    color: $red;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    border: 1px solid transparent;
+    font-weight: bold;
+    display: flex;
+
+    @include ellipsis;
+}
