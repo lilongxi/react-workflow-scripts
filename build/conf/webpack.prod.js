@@ -66,6 +66,7 @@ function _webpack_prod(conf){
             .use(CleanWebpackPlugin,[[
                 resolve('dist')
             ]])
+            .end()
         .plugin('html-template')
             .use(HtmlWebpackPlugin, [{
                 filename: 'index.html',
@@ -124,6 +125,7 @@ function _webpack_prod(conf){
                     // （预加载）忽略某些文件
                     exclude: [
                         /index\.html$/,
+                        /manifest\..*\.js$/
                     ],
                     // 动态更新缓存
                     runtimeCaching: [{

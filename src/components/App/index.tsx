@@ -27,6 +27,12 @@ export default class App extends React.PureComponent <any, any > {
                     <TabComponent.Tab>
                         测试tab2
                     </TabComponent.Tab>
+                    <TabComponent.Tab>
+                        测试tab3
+                    </TabComponent.Tab>
+                    <TabComponent.Tab>
+                        测试tab4
+                    </TabComponent.Tab>
                 </TabComponent.Tabs>
             </>
         )

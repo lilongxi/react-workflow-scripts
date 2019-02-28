@@ -171,7 +171,7 @@ function _webpack_core(conf){
             .end()
         .plugin('progress-bar')
              .use(progressBarPlugins, [{
-                format: `${chalk.blue.bold('build ')}${chalk.cyan('[:bar]')}${chalk.green.bold(':percent')}(${chalk.magenta(':elapsed')}seconds)`,
+                format: chalk.blue.bold('build  ') + chalk.cyan('[:bar]') + chalk.green.bold(':percent') + ' (' + chalk.magenta(":elapsed") + ' seconds) ',
                 clear: false
              }])
              .end()
