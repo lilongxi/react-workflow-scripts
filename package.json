@@ -112,7 +112,7 @@
     "port": 8080
   },
   "lint-staged": {
-    "*.{ts,tsx}": ["tslint --project ./tsconfig.json"],
+    "*.tsx": ["tslint --project ./tsconfig.json"],
     "*.{css,scss}": "stylelint",
     "*.json": "jsonlint --quiet"
   }
