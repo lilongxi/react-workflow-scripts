@@ -10,10 +10,14 @@
     "lint:js": "tslint --project ./tsconfig.json",
     "lint:css": "stylelint \"./src/**/*.scss\"",
     "lint:json": "jsonlint --quiet *.json",
-    "precommit": "lint-staged",
     "dev": "cross-env APP_ENV=dev webpack-dev-server --config build/webpack.config.js",
     "prod": "cross-env APP_ENV=prod webpack --config build/webpack.config.js",
     "show": "echo $npm_package_name && echo $npm_package_version"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "repository": {
     "type": "git",
@@ -108,8 +112,8 @@
     "port": 8080
   },
   "lint-staged": {
-    "src/**/*.{ts, tsx}": ["--project ./tsconfig.json"],
-    "src/**/*.{css, scss}": ["stylelint"],
+    "src/**/*.{ts, tsx}": ["tslint --project ./tsconfig.json"],
+    "src/**/*.{css, scss}": "stylelint",
     "src/**/*.json": "jsonlint --quiet"
   }
 }
