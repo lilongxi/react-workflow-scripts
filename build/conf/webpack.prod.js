@@ -4,10 +4,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
 const webpack = require('webpack')
 const config = require('./webpack.core')
 const constants = require('../utils/constants')
+const { resolve } = require('../utils')
 
 function _webpack_prod(conf){
 
@@ -60,6 +62,10 @@ function _webpack_prod(conf){
                 /css\.d\.ts$/
             ]])
             .end()
+        .plugin('clean-dist')
+            .use(CleanWebpackPlugin,[[
+                resolve('dist')
+            ]])
         .plugin('html-template')
             .use(HtmlWebpackPlugin, [{
                 filename: 'index.html',
@@ -141,10 +147,12 @@ function _webpack_prod(conf){
                     cache: true,
                     parallel: true,
                     sourceMap: true,
-                    compress: {
-                        warnings: false,
-                        drop_debugger: true,
-                        drop_console: true
+                    terserOptions: {
+                        compress: {
+                            warnings: false,
+                            drop_debugger: true,
+                            drop_console: true
+                        }
                     }
                 }])
                 .end()
