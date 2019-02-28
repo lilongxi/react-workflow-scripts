@@ -10,8 +10,7 @@
     "lint:js": "tslint --project ./tsconfig.json",
     "lint:css": "stylelint \"./src/**/*.scss\"",
     "lint:json": "jsonlint --quiet *.json",
-    "precommit": "npm run lint",
-    "prepush": "npm run test -s",
+    "precommit": "lint-staged",
     "dev": "cross-env APP_ENV=dev webpack-dev-server --config build/webpack.config.js",
     "prod": "cross-env APP_ENV=prod webpack --config build/webpack.config.js",
     "show": "echo $npm_package_name && echo $npm_package_version"
@@ -107,5 +106,11 @@
   ],
   "config": {
     "port": 8080
+  },
+  "lint-staged": {
+    "src/**/*.{ts, tsx}": "tslint --fix",
+    "*.scss": "stylelint",
+    "*.css": "stylelint",
+    "*.json": "jsonlint --quiet"
   }
 }
