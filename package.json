@@ -12,7 +12,8 @@
     "lint:json": "jsonlint --quiet *.json",
     "dev": "cross-env APP_ENV=dev webpack-dev-server --config build/webpack.config.js",
     "prod": "cross-env APP_ENV=prod webpack --config build/webpack.config.js",
-    "show": "echo $npm_package_name && echo $npm_package_version"
+    "show": "echo $npm_package_name && echo $npm_package_version",
+    "release:patch": "npm version patch && git push && git push --tags"
   },
   "husky": {
     "hooks": {
