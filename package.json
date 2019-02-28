@@ -108,7 +108,7 @@
     "port": 8080
   },
   "lint-staged": {
-    "src/**/*.{ts, tsx}": "tslint",
+    "src/**/*.{ts, tsx}": "./tslint.json",
     "src/**/*.{css, scss}": "stylelint",
     "src/**/*.json": "jsonlint --quiet"
   }
