@@ -5,7 +5,7 @@ const chalk = require('chalk')
 const { version, config } = require('../package.json')
 
 console.info(chalk.green('run lint:* for parallel'))
-exec('npm-run-all --parallel lint:*')
+exec('npm run lint')
 
 console.log(chalk.green('run testing and collect new coverage...'));
 exec('npm run test -s');
