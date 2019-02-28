@@ -6,7 +6,7 @@
     font-family: 'Courier New', Courier, monospace;
     border: 1px solid transparent;
     font-weight: bold;
-    display: flex;
+    display:flex;
 
     @include ellipsis;
 }
