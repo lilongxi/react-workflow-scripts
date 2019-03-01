@@ -4,12 +4,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
 const webpack = require('webpack')
 const config = require('./webpack.core')
 const constants = require('../utils/constants')
-const { resolve } = require('../utils')
 
 function _webpack_prod(conf){
 
@@ -60,11 +58,6 @@ function _webpack_prod(conf){
         .plugin('watch-ignore')
             .use(webpack.WatchIgnorePlugin, [[
                 /css\.d\.ts$/
-            ]])
-            .end()
-        .plugin('clean-dist')
-            .use(CleanWebpackPlugin,[[
-                resolve('dist')
             ]])
             .end()
         .plugin('html-template')
