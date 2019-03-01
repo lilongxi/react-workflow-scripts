@@ -118,6 +118,7 @@ function _webpack_prod(conf){
                     // （预加载）忽略某些文件
                     exclude: [
                         /index\.html$/,
+                        /manifest\..*\.js$/
                     ],
                     // 动态更新缓存
                     runtimeCaching: [{
@@ -141,10 +142,12 @@ function _webpack_prod(conf){
                     cache: true,
                     parallel: true,
                     sourceMap: true,
-                    compress: {
-                        warnings: false,
-                        drop_debugger: true,
-                        drop_console: true
+                    terserOptions: {
+                        compress: {
+                            warnings: false,
+                            drop_debugger: true,
+                            drop_console: true
+                        }
                     }
                 }])
                 .end()

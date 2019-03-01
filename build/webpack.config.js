@@ -18,11 +18,12 @@ module.exports = function _webpack_entry( APP_CONF = {} , argv ){
             break;
     }
     console.log(chalk.cyan('Building Now : ') + chalk.magenta(reslovePath))
-    return require(reslovePath)({
+    const conf = require(reslovePath)({
         ROOTPATH: __dirname,
         PUBLICPATH: '',
         __PROD__,
         __DEV__,
         __CONF__
     })
+    return  conf
 }
