@@ -1,6 +1,7 @@
 {
     "extends": ["tslint:recommended", "tslint-react"],
     "rules": {
+        "no-angle-bracket-type-assertion": false,
         "typedef-whitespace": true,
         "arrow-parens": false,
         "arrow-return-shorthand": [false],

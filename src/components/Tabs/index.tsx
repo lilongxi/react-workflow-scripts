@@ -51,4 +51,4 @@ export class Tabs extends React.PureComponent<IProps, IState> {
 
 }
 
-export const Tab: React.SFC = ({children}) => <React.Fragment>{children}</React.Fragment>
+export const Tab: React.SFC = ({children}) => <>{children}</>

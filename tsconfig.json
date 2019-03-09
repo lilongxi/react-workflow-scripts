@@ -11,7 +11,14 @@
         "paths": {
             "@components/*": ["components/*"],
             "@assest/*": ["assest/*"],
-            "@styles/*": ["styles/*"]
+            "@styles/*": ["styles/*"],
+            "@containers/*": ["containers/*"],
+            "@constants/*": ["constants/*"],
+            "@stores/*": ["stores/*"],
+            "@utils/*": ["utils/*"],
+            "@creators/*": ["creators/*"],
+            "@mock/*": ["mock/*"],
+            "@middlewares/*": ["middlewares/*"]
         },
         "jsx": "react",
         "alwaysStrict": true,

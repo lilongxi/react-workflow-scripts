@@ -49,6 +49,7 @@ function _webpack_dev(conf){
             .use(webpack.NoEmitOnErrorsPlugin)
             .end()
 
+    // waring: React-Hot-Loader: react-🔥-dom patch is not detected. React 16.6+ features may not work.
     _dev_config.resolve
         .alias
             .set('react-dom', '@hot-loader/react-dom')
@@ -59,9 +60,19 @@ function _webpack_dev(conf){
         .contentBase(resolve('dist'))
         .hot(true)
         .open(true)
-        .headers({
-            "Access-Control-Allow-Origin": "*",
-        })
+        .historyApiFallback(true) //BrowserRouter
+        // .headers({
+        //     "Access-Control-Allow-Origin": "*",
+        // })
+        // .proxy({
+        //     '/api': {
+        //         target: 'http://v.juhe.cn',
+        //         secure: false,
+        //         pathRewrite: {
+        //             '^/api': ''
+        //         }
+        //     }
+        // })
         .overlay({
             errors: true
         })

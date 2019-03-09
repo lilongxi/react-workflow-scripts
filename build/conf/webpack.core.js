@@ -16,6 +16,7 @@ function _webpack_core(conf){
     // 配置文件出口和入口
     config
         .entry('index')
+            .add('@babel/polyfill')
             .add(resolve('src'))
             .end()
         .output

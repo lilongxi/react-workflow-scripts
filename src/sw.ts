@@ -1,5 +1,4 @@
 // Register A service worker
-
 export default function registerServiceWorker() {
     if ('serviceWorker' in navigator && CONF.__CONF__ !== 'dev') {
         window.addEventListener('load', () => {

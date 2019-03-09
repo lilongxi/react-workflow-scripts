@@ -3,11 +3,15 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
+// const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const webpack = require('webpack')
 const config = require('./webpack.core')
 const constants = require('../utils/constants')
+const AssestConf = require('../utils/conf')
+const { resolve } = require('../utils')
 
 function _webpack_prod(conf){
 
@@ -60,6 +64,17 @@ function _webpack_prod(conf){
                 /css\.d\.ts$/
             ]])
             .end()
+        .plugin('DllReferencePlugin')
+             .use(webpack.DllReferencePlugin, [{
+                 context: AssestConf.context,
+                 manifest: resolve('dll/_react.manifest.json')
+             }])
+             .end()
+        .plugin('copy-webpack-plugin') // 要在html-webpack-plugin前调用
+            .use(CopyWebpackPlugin, [[
+                 { from: resolve('dll/*.js'), to: resolve('dist')}
+            ]])
+            .end()
         .plugin('html-template')
             .use(HtmlWebpackPlugin, [{
                 filename: 'index.html',
@@ -76,7 +91,25 @@ function _webpack_prod(conf){
                     removeAttributeQuotes: true
                 }
             }])
+            .after('copy-webpack-plugin') // 在copy-webpack-plugin之后编译html模板
             .end()
+        .plugin('html-webpack-include-assets-plugin') // 要在html-webpack-plugin后调用
+            .use(HtmlWebpackIncludeAssetsPlugin, [{
+                assets: [{
+                    path: 'dll', // html js文件引用路径
+                    glob: '*.js', // 通配符匹配所有dll.js文件
+                    globPath: resolve('dll') // 从dll文件夹内匹配
+                }],
+                append: false // dll文件前置
+            }])
+            .after('html-template')
+            .end()
+        // .plugin('script-ext-html: 要在html-webpack-plugin后调用')
+        //     .use(ScriptExtHtmlWebpackPlugin, [{
+        //         inline: /manifest\..*\.js$/
+        //     }])
+        //     .after('html-webpack-include-assets-plugin')
+        //     .end()
         .plugin('extract-css')
             .use( MiniCssExtractPlugin, [{
                 filename: 'css/app.[name].css',
@@ -99,12 +132,6 @@ function _webpack_prod(conf){
                     maxChunks: 5, // 必须大于或等于5
                     minChunkSize: 1000
                 }])
-            .end()
-        .plugin('script-ext-html: 要在html-webpack-plugin后调用')
-            .use(ScriptExtHtmlWebpackPlugin, [{
-                inline: /manifest\..*\.js$/
-            }])
-            .after('html-template')
             .end()
         .plugin('workboxPlugin: 构建PWA')
             .use(WorkboxPlugin.GenerateSW, [{
