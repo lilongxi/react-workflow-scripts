@@ -3,6 +3,7 @@ module.exports = {
     "bail": true,
     //测试缓存数据的存储位置
     "cacheDirectory": "./node_modules/.cache",
+    // 注入测试环境
     "testEnvironment": "jsdom",
     //忽略该路径的文件测试
     "testPathIgnorePatterns": [
@@ -11,9 +12,11 @@ module.exports = {
         "<rootDir>/.cache-loader/",
         "<rootDir>/.vscode/",
         "<rootDir>/dist/",
+        "<rootDir>/dll/",
         "<rootDir>/typings/",
         "<rootDir>/coverage_archive/",
-        "<rootDir>/scripts/"
+        "<rootDir>/scripts/",
+        "<rootDir>/tool/"
       ],
     //测试模块中用到的文件的后缀名配置
     "moduleFileExtensions": [
@@ -21,8 +24,9 @@ module.exports = {
         "tsx",
         "js"
     ],
+    // 用 `ts-jest` 处理 tsx、ts
     "transform": {
-        "^.+\\.tsx?$": "ts-jest"
+        "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest"
     },
     //给每个测试文件添加额外的配置
     "setupFiles": [
@@ -33,6 +37,7 @@ module.exports = {
         "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
         "<rootDir>/src/**/?(*.)(spec|test).{js,jsx,ts,tsx}"
     ],
+    // 启动文件
     "setupFilesAfterEnv": [
         "<rootDir>src/enzyme.setup.ts"
     ],
@@ -63,8 +68,11 @@ module.exports = {
     // },
     // 以下文件不统计进入测试覆盖率范围
     "coveragePathIgnorePatterns": [
-        "<rootDir>/build/",
-        "<rootDir>/node_modules/",
-        "<rootDir>/dist/"
+        "<rootDir>/src/assest",
+        "<rootDir>/src/constants",
+        "<rootDir>/src/creators",
+        "<rootDir>/src/styles",
+        "<rootDir>/src/mock",
+        "<rootDir>/src/middlewares",
     ]
 }

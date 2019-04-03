@@ -1,6 +1,7 @@
 {
     "extends": ["tslint:recommended", "tslint-react"],
     "rules": {
+        "no-angle-bracket-type-assertion": false,
         "typedef-whitespace": true,
         "arrow-parens": false,
         "arrow-return-shorthand": [false],
@@ -40,7 +41,6 @@
         "typedef": [true, "property-declaration"],
         "variable-name": [true, "ban-keywords", "check-format", "allow-pascal-case", "allow-leading-underscore"],
         "max-classes-per-file": false,
-
         "jsx-no-lambda": false,
         "jsx-no-multiline-js": false,
         "jsx-curly-spacing": [true, { "when": "never", "allowMultiline": false }],

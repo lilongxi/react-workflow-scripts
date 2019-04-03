@@ -24,3 +24,7 @@ declare module '*.jpeg' {
 declare module '*.gif' {
     export default content
 }
+
+declare module '*.json' {
+    export default content
+}

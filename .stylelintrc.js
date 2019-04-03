@@ -1,6 +1,6 @@
 // @ts-nocheck
 module.exports = {
-    ignoreFiles: ['node_modules/**/*.scss', '**/*.md', '**/*.ts', '**/*.tsx', '**/*.js', 'dist/**/*.css'],
+    ignoreFiles: ['coverage/**/*.css', 'node_modules/**/*.scss', '**/*.md', '**/*.ts', '**/*.tsx', '**/*.js', 'dist/**/*.css'],
     extends: ['stylelint-config-css-modules', 'stylelint-config-standard'],
     plugins: ['stylelint-scss'],
     rules: {

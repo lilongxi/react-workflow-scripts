@@ -1,13 +1,17 @@
-
+// const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const WorkboxPlugin = require('workbox-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpack = require('webpack')
 const config = require('./webpack.core')
 const constants = require('../utils/constants')
+const AssestConf = require('../utils/conf')
+const { resolve } = require('../utils')
 
 function _webpack_prod(conf){
 
@@ -54,10 +58,28 @@ function _webpack_prod(conf){
                 .before('cache-sass')
                 .end()
 
+     _prod_config.module
+        .rule('less')
+            .use('mini-css-extract-loader: 在开发环境中使用MiniCssExtractPlugin')
+                .loader(MiniCssExtractPlugin.loader)
+                .before('css-loader')
+                .end()
+
     _prod_config
         .plugin('watch-ignore')
             .use(webpack.WatchIgnorePlugin, [[
                 /css\.d\.ts$/
+            ]])
+            .end()
+        .plugin('DllReferencePlugin')
+             .use(webpack.DllReferencePlugin, [{
+                 context: AssestConf.context,
+                 manifest: resolve('dll/_react.manifest.json')
+             }])
+             .end()
+        .plugin('copy-webpack-plugin') // 要在html-webpack-plugin前调用
+            .use(CopyWebpackPlugin, [[
+                 { from: resolve('dll/*.js'), to: resolve('dist')}
             ]])
             .end()
         .plugin('html-template')
@@ -76,7 +98,25 @@ function _webpack_prod(conf){
                     removeAttributeQuotes: true
                 }
             }])
+            .after('copy-webpack-plugin') // 在copy-webpack-plugin之后编译html模板
             .end()
+        .plugin('html-webpack-include-assets-plugin') // 要在html-webpack-plugin后调用
+            .use(HtmlWebpackIncludeAssetsPlugin, [{
+                assets: [{
+                    path: 'dll', // html js文件引用路径
+                    glob: '*.js', // 通配符匹配所有dll.js文件
+                    globPath: resolve('dll') // 从dll文件夹内匹配
+                }],
+                append: false // dll文件前置
+            }])
+            .after('html-template')
+            .end()
+        // .plugin('script-ext-html: 要在html-webpack-plugin后调用')
+        //     .use(ScriptExtHtmlWebpackPlugin, [{
+        //         inline: /manifest\..*\.js$/
+        //     }])
+        //     .after('html-webpack-include-assets-plugin')
+        //     .end()
         .plugin('extract-css')
             .use( MiniCssExtractPlugin, [{
                 filename: 'css/app.[name].css',
@@ -99,12 +139,6 @@ function _webpack_prod(conf){
                     maxChunks: 5, // 必须大于或等于5
                     minChunkSize: 1000
                 }])
-            .end()
-        .plugin('script-ext-html: 要在html-webpack-plugin后调用')
-            .use(ScriptExtHtmlWebpackPlugin, [{
-                inline: /manifest\..*\.js$/
-            }])
-            .after('html-template')
             .end()
         .plugin('workboxPlugin: 构建PWA')
             .use(WorkboxPlugin.GenerateSW, [{
@@ -130,6 +164,9 @@ function _webpack_prod(conf){
                     }]
             }])
             .end()
+        // .plugin('BundleAnalyzerPlugin')
+        //     .use(BundleAnalyzerPlugin)
+        //     .end()
 
     _prod_config.optimization
             .runtimeChunk({
@@ -178,6 +215,10 @@ function _webpack_prod(conf){
                         }
                     }
                 })
+
+    // _prod_config.resolve
+    //         .alias
+    //         .set('@ant-design/icons/lib/dist$', resolve('src/icon.js'))
 
     return _prod_config.toConfig()
 

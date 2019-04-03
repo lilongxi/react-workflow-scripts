@@ -11,7 +11,14 @@
         "paths": {
             "@components/*": ["components/*"],
             "@assest/*": ["assest/*"],
-            "@styles/*": ["styles/*"]
+            "@styles/*": ["styles/*"],
+            "@containers/*": ["containers/*"],
+            "@constants/*": ["constants/*"],
+            "@stores/*": ["stores/*"],
+            "@utils/*": ["utils/*"],
+            "@creators/*": ["creators/*"],
+            "@mock/*": ["mock/*"],
+            "@middlewares/*": ["middlewares/*"]
         },
         "jsx": "react",
         "alwaysStrict": true,
@@ -22,10 +29,15 @@
         "skipLibCheck": true,
         "typeRoots": ["node", "node_modules/@types", "./typings"]
     },
+    "include": [
+        "./src",
+        "./typings"
+    ],
     "exclude": [
-        "src/sw.ts",
+        "./src/sw.ts",
         "node_modules",
         "**/*.spec.ts",
-        "**/*.test.ts"
+        "**/*.test.ts",
+        "./src/**/*.scss.d.ts",
     ]
 }

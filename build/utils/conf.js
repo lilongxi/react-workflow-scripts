@@ -4,6 +4,7 @@ const { resolve } = require('./index')
 const STATICDOMAIN = constants.APP_ENV === 'prod' ? '.' : ''
 
 module.exports = {
+    context: __dirname,
     assetsPublicPath: constants.APP_ENV === 'dev' ? '/' : `${STATICDOMAIN}/`,
     assetsSubDirectory: 'static',
     sourceMap: constants.APP_ENV === 'dev' ? 'source-map' : constants.APP_ENV === 'prod' ? 'cheap-module-source-map' : false,

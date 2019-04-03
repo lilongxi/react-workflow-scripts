@@ -19,7 +19,6 @@ function _webpack_dev(conf){
 
     _dev_config.mode("development")
 
-
     // 与生产环境做出区分
    _dev_config.module
         .rule('scss')
@@ -27,12 +26,19 @@ function _webpack_dev(conf){
                 .loader('style-loader')
                 .before('cache-sass')
                 .end()
+    // antd
+    _dev_config.module
+        .rule('less')
+            .use('style-loader')
+                .loader('style-loader')
+                .before('css-loader')
+                .end()
 
     _dev_config
         .plugin('html-template')
             .use(HtmlWebpackPlugin, [{
                 filename: 'index.html',
-                template: 'build/tpl/index.html',
+                template: resolve('build/tpl/index.html'),
                 inject: true
             }])
             .end()
@@ -49,6 +55,7 @@ function _webpack_dev(conf){
             .use(webpack.NoEmitOnErrorsPlugin)
             .end()
 
+    // waring: React-Hot-Loader: react-🔥-dom patch is not detected. React 16.6+ features may not work.
     _dev_config.resolve
         .alias
             .set('react-dom', '@hot-loader/react-dom')
@@ -59,12 +66,25 @@ function _webpack_dev(conf){
         .contentBase(resolve('dist'))
         .hot(true)
         .open(true)
-        .headers({
-            "Access-Control-Allow-Origin": "*",
-        })
+        //BrowserRouter
+        .historyApiFallback(true)
+        // .headers({
+        //     "Access-Control-Allow-Origin": "*",
+        // })
+        // .proxy({
+        //     '/api': {
+        //         target: 'http://v.juhe.cn',
+        //         secure: false,
+        //         pathRewrite: {
+        //             '^/api': ''
+        //         }
+        //     }
+        // })
         .overlay({
             errors: true
         })
+
+    console.log(_dev_config.toString())
 
     return _dev_config.toConfig()
 }

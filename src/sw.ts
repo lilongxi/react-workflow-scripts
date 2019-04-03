@@ -1,7 +1,7 @@
+import { ENV_CONFIGER } from '@constants/env'
 // Register A service worker
-
 export default function registerServiceWorker() {
-    if ('serviceWorker' in navigator && CONF.__CONF__ !== 'dev') {
+    if ('serviceWorker' in navigator && CONF.__CONF__ !== ENV_CONFIGER.DEVELOPMENT) {
         window.addEventListener('load', () => {
             const prefix = location
                 .pathname

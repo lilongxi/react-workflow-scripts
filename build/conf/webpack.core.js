@@ -15,6 +15,9 @@ function _webpack_core(conf){
 
     // 配置文件出口和入口
     config
+        .entry('polyfill')
+            .add('@babel/polyfill')
+            .end()
         .entry('index')
             .add(resolve('src'))
             .end()
@@ -46,8 +49,10 @@ function _webpack_core(conf){
                 .loader('babel-loader')
                 .options({
                     babelrc: false,
-                    presets: ['@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
+                    presets: [ '@babel/preset-env', '@babel/preset-typescript', '@babel/preset-react'],
                     plugins: [
+                        // antd
+                         ['import', { libraryName: 'antd', libraryDirectory: 'lib', style: true }],
                          ['@babel/plugin-proposal-decorators', { legacy: true }],
                          ['@babel/plugin-proposal-class-properties', { loose: true }],
                          '@babel/plugin-syntax-dynamic-import',
@@ -108,6 +113,27 @@ function _webpack_core(conf){
                 })
                 .end()
 
+    // 对antd添加支持 less-loader
+    config.module
+        .rule('less')
+            .test(/\.less$/)
+            .include
+                .add(resolve('node_modules'))
+                .end()
+            .use('css-loader')
+                .loader('css-loader')
+                .end()
+            .use('postcss-loader')
+                .loader('postcss-loader')
+                .end()
+            .use('less-loader')
+                .loader('less-loader')
+                .options({
+                    // 禁止内链js代码 禁用样式表里写js代码
+                    javascriptEnabled: true,
+                })
+                .end()
+
     // svg
     config.module
         .rule('svg')
@@ -151,9 +177,9 @@ function _webpack_core(conf){
         .extensions
             .merge(constants.FILE_EXTENSIONS)
 
-    config.resolve
-        .modules
-            .merge([resolve('src'), resolve('node_modules') ])
+    // config.resolve
+    //     .modules
+    //         .merge([resolve('src'), resolve('node_modules') ])
 
     config.resolve
          .plugin('ts-path')
