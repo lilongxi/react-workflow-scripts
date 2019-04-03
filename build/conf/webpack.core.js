@@ -19,6 +19,7 @@ function _webpack_core(conf){
             .add('@babel/polyfill')
             .end()
         .entry('index')
+            .add('@babel/polyfill')
             .add(resolve('src'))
             .end()
         .output

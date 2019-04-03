@@ -1,6 +1,6 @@
 import { Actions } from '@creators/globalActionCreators'
 import { globalActionTypes as ActionTypes } from '@constants/index'
-import { globalStore as globalState } from './type'
+import { GlobalStore as globalState } from './type'
 import { LOCALSTORAGE_KEYS } from '@constants/keys'
 
 const initalState = {

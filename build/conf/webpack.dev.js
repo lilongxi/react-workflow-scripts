@@ -84,8 +84,6 @@ function _webpack_dev(conf){
             errors: true
         })
 
-    console.log(_dev_config.toString())
-
     return _dev_config.toConfig()
 }
 

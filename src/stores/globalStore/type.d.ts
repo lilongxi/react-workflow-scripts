@@ -1,6 +1,6 @@
 export as namespace IGlobalStore
 
-export interface globalStore {
+export interface GlobalStore {
     sideBarTheme: string,
     subreddit: string,
     sideBarCollapsed: boolean,

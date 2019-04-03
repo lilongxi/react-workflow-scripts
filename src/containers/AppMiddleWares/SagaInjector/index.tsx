@@ -54,5 +54,5 @@ export default ({ key, saga, mode }: IInjectSagaParams) => (
         }
     }
 
-    return hoisNonReactStatics< typeof InjectSaga , typeof WrappedComponent>(InjectSaga, WrappedComponent)
+    return hoisNonReactStatics(InjectSaga, WrappedComponent)
 }

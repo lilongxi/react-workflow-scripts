@@ -49,5 +49,5 @@ export default ({key, reducer, keepStateAlive}: IInjectReducerParams) => (
         }
 
     }
-    return hoisNonReactStatics<typeof ReducerInjector , typeof WrapperComponent>(ReducerInjector, WrapperComponent)
+    return hoisNonReactStatics(ReducerInjector, WrapperComponent)
 }

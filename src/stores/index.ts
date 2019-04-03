@@ -4,7 +4,6 @@
 import { combineReducers } from 'redux'
 import { globalStore } from './globalStore'
 import { authStore, watchLoginAsync } from './authStore'
-// import { watchNewsAsync } from '@containers/ReduxPage/store/saga'
 import { connectRouter } from 'connected-react-router'
 import { History } from 'history'
 import { all } from 'redux-saga/effects'
